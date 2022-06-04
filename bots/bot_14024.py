@@ -2,8 +2,9 @@ import telebot
 from telebot import types
 import logging
 from datetime import datetime
+from config import KEY
 
-API_KEY = '5398007849:AAFKndDeAWI6Zyo4oBBA0e2cnTsZuxog1b0'
+API_KEY = key
 
 bot = telebot.TeleBot(API_KEY)
 
