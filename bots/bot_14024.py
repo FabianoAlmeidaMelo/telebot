@@ -2,9 +2,8 @@ import telebot
 from telebot import types
 import logging
 from datetime import datetime
-from config import KEY
+from config import API_KEY
 
-API_KEY = key
 
 bot = telebot.TeleBot(API_KEY)
 
@@ -92,13 +91,6 @@ def get_initial_menu(message):
         menu
     )
 
-# autentcated = {1534403426: '5512982239764'}
-'''
-user_id = {'telegram_user_id': '1534403426',
-            'phone_number' '5512982239764',
-            'first_name': 'Fabiano',
-            'farm_ids': '[14024, 407]'}
-'''
 autentcated = {}
 
 @bot.message_handler(content_types=["contact"])
