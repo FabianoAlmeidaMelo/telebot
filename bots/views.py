@@ -6,7 +6,7 @@ url = 'http://192.168.100.33:8008'
 
 
 def eagle_saldo(farm_id):
-    global url #= 'http://192.168.100.33:8008'
+    global url # 32086
     url += f'/transaction/?farm_id={farm_id}'
     saldo = requests.get(url, headers={'Authorization': f'Bearer {JETBOV_TOKEN}'})
     print('-----------------------------')
