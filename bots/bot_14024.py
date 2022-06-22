@@ -1,20 +1,25 @@
 import telebot
 from telebot import types
 import logging
-from datetime import datetime
-from config import API_KEY
 
+from config import API_KEY
+from views import (
+    eagle_saldo
+)
 
 bot = telebot.TeleBot(API_KEY)
 
 logger = telebot.logger
 
+phone_numbers = {
+    '5512982239764': True,
+    '5512997164534': True
+}
+
+
 @bot.message_handler(commands=["saldo"])
 def get_saldo(message):
-    data = datetime.today().strftime("%d/%m/%Y")
-    msg = ''
-    for conta in ['Itaú', 'C6 Bank']:
-        msg += f'{data} - Conta: {conta}, saldo: R$ 1520,00\n'
+    msg = eagle_saldo(32086)
     bot.send_message(
         message.chat.id,
         msg
