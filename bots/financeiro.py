@@ -22,11 +22,20 @@ def eagle_saldo(farm_id, token):
         msg += f'{name}  {valor}\n\n'
     msg += '/inicial: Volta para o menu inicial\n'
     msg += '/financeiro: Informações financeiras'
-
     return msg
 
-#financeiro
 def eagle_prx_pgtos(farm_id, token):
+    url = 'http://192.168.100.33:8008'
+    url += f'/transaction/?farm_id={farm_id}'
+    saldo = requests.get(url, headers={'Authorization': f'Bearer {token}'})
+
+    data = datetime.today().strftime("%d/%m/%Y")
+    msg += '/inicial: Volta para o menu inicial\n'
+    msg += '/financeiro: Informações financeiras'
+
+    return str(saldo.json()[0])
+
+def eagle_prx_recebimentos(farm_id, token):
     url = 'http://192.168.100.33:8008'
     url += f'/transaction/?farm_id={farm_id}'
     saldo = requests.get(url, headers={'Authorization': f'Bearer {token}'})

@@ -7,7 +7,10 @@ from lotes import (
     eagle_pesos
 )
 from financeiro import (
-    eagle_saldo
+    eagle_saldo,
+    eagle_prx_recebimentos,
+    eagle_prx_pgtos
+
 )
 from config import JETBOV_TOKEN, phone_numbers
 bot = telebot.TeleBot(API_KEY)
@@ -47,6 +50,21 @@ def get_prx_pgtos(message):
 
     if farm_id and token:
         msg = eagle_prx_pgtos(farm_id, token)
+    else:
+        msg: 'Não consegui identificar sua fazenda'
+    bot.send_message(
+        message.chat.id,
+        msg
+    )
+
+@bot.message_handler(commands=["prx_recebimentos"])
+def get_prx_recebimentos(message):
+
+    farm_id = autenticated.get(message.from_user.id)['farm_id']
+    token = autenticated.get(message.from_user.id)['token']
+
+    if farm_id and token:
+        msg = eagle_prx_recebimentos(farm_id, token)
     else:
         msg: 'Não consegui identificar sua fazenda'
     bot.send_message(
@@ -102,7 +120,7 @@ def get_lotes_options(message):
     menu = """
     Sobre o que você quer saber sobre seus Lotes:
     /pesos: Peso e cotação dos Lotes
-    /ultima_pesagem: Dta da Última pesagem
+    /ultima_pesagem: Data da Última pesagem
     /inicial: Volta para o menu inicial
     Clique em uma das opções
     """
