@@ -3,9 +3,11 @@ from telebot import types
 import logging
 
 from config import API_KEY
-from views import (
-    eagle_saldo,
+from lotes import (
     eagle_pesos
+)
+from financeiro import (
+    eagle_saldo
 )
 from config import JETBOV_TOKEN, phone_numbers
 bot = telebot.TeleBot(API_KEY)
@@ -24,7 +26,7 @@ def cant_access(message):
 
 @bot.message_handler(commands=["saldo"])
 def get_saldo(message):
-    farm_id = token = None
+
     farm_id = autenticated.get(message.from_user.id)['farm_id']
     token = autenticated.get(message.from_user.id)['token']
 
@@ -39,7 +41,7 @@ def get_saldo(message):
 
 @bot.message_handler(commands=["prx_pgtos"])
 def get_prx_pgtos(message):
-    farm_id = token = None
+
     farm_id = autenticated.get(message.from_user.id)['farm_id']
     token = autenticated.get(message.from_user.id)['token']
 
@@ -82,7 +84,7 @@ def get_storage_options(message):
 
 @bot.message_handler(commands=["pesos"])
 def get_pesos(message):
-    farm_id = token = None
+
     farm_id = autenticated.get(message.from_user.id)['farm_id']
     token = autenticated.get(message.from_user.id)['token']
 
@@ -142,6 +144,7 @@ def get_inicial_menu(message):
 @bot.message_handler(content_types=["contact"])
 def contact_handler(message):
     habilitado = bool(phone_numbers.get(message.contact.phone_number))
+
     if not autenticated.get(message.contact.user_id):
         if habilitado:
             autenticated[message.contact.user_id] = {
@@ -152,6 +155,7 @@ def contact_handler(message):
             }
         else:
             cant_access(message)
+
     if autenticated.get(message.contact.user_id) and habilitado:
         get_inicial_menu(message)
 
