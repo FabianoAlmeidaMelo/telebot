@@ -25,4 +25,7 @@ def eagle_pesos(farm_id, token):
         valor = f'R$ {valor}'
         msg += f'{name}  ({animais})\n {peso}Kg {valor}\n\n'
 
+    msg += '/inicial: Volta para o menu inicial\n'
+    msg += '/lotes: Situação dos lotes'
+
     return msg

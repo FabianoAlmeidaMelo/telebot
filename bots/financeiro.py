@@ -20,6 +20,8 @@ def eagle_saldo(farm_id, token):
         valor = locale.currency(valor, grouping=True, symbol=None)
         valor = f'R$ {valor}'
         msg += f'{name}  {valor}\n\n'
+    msg += '/inicial: Volta para o menu inicial\n'
+    msg += '/financeiro: Informações financeiras'
 
     return msg
 
@@ -30,5 +32,7 @@ def eagle_prx_pgtos(farm_id, token):
     saldo = requests.get(url, headers={'Authorization': f'Bearer {token}'})
 
     data = datetime.today().strftime("%d/%m/%Y")
+    msg += '/inicial: Volta para o menu inicial\n'
+    msg += '/financeiro: Informações financeiras'
 
     return str(saldo.json()[0])
