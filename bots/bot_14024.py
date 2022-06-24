@@ -211,7 +211,7 @@ def start(message):
         markup.add(button_phone)
         bot.send_message(
             message.chat.id,
-            'Seu telefone faz a autenticação',
+            'Clique no botão "enviar o telefone" para iniciar',
             reply_markup=markup
         )
     elif phone_numbers.get(autenticated.get(message.from_user.id)['phone']) is None:

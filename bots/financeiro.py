@@ -25,23 +25,50 @@ def eagle_saldo(farm_id, token):
     return msg
 
 def eagle_prx_pgtos(farm_id, token):
-    url = 'http://192.168.100.33:8008'
-    url += f'/transaction/?farm_id={farm_id}'
-    saldo = requests.get(url, headers={'Authorization': f'Bearer {token}'})
-
+    # url = 'http://192.168.100.33:8008'
+    # url += f'/transaction/balance/?farm_id={farm_id}'
+    # contas = requests.get(url, headers={'Authorization': f'Bearer {token}'})
     data = datetime.today().strftime("%d/%m/%Y")
+
+    refs = [
+        ('ração', 'R$ 2.000,00', '27/06/2022'),
+        ('Manut. trator','R$ 1.500,00', '01/07/2022'),
+        ('Veterinário', 'R$ 7.500,00', '10/07/2022'),
+        ('Financiamento', 'R$ 10.500,00', '11/07/2022')
+    ]
+
+    msg = f'{data}\n'
+    msg += 'Referência:   Próximos (Pagamentos) data\n'
+    msg += '--------------------------------------------\n' 
+    for r in refs:
+        ref = r[0]
+        valor = r[1]
+        data = r[2]
+        msg += f'{ref}  ({valor}) {data}\n\n'
     msg += '/inicial: Volta para o menu inicial\n'
     msg += '/financeiro: Informações financeiras'
-
-    return str(saldo.json()[0])
+    return msg
 
 def eagle_prx_recebimentos(farm_id, token):
-    url = 'http://192.168.100.33:8008'
-    url += f'/transaction/?farm_id={farm_id}'
-    saldo = requests.get(url, headers={'Authorization': f'Bearer {token}'})
-
+    # url = 'http://192.168.100.33:8008'
+    # url += f'/transaction/balance/?farm_id={farm_id}'
+    # contas = requests.get(url, headers={'Authorization': f'Bearer {token}'})
     data = datetime.today().strftime("%d/%m/%Y")
+
+    refs = [
+        ('Venda 021', 'R$ 20.000,00', '09/07/2022'),
+        ('Venda Silagem','R$ 3.8500,00', '13/07/2022'),
+        ('Venda Angus 326', 'R$ 75.500,00', '30/07/2022')
+    ]
+
+    msg = f'{data}\n'
+    msg += 'Referência:   Próximos (Recebimentos) data\n'
+    msg += '--------------------------------------------\n' 
+    for r in refs:
+        ref = r[0]
+        valor = r[1]
+        data = r[2]
+        msg += f'{ref}  ({valor}) {data}\n\n'
     msg += '/inicial: Volta para o menu inicial\n'
     msg += '/financeiro: Informações financeiras'
-
-    return str(saldo.json()[0])
+    return msg
