@@ -6,6 +6,9 @@ from config import API_KEY
 from lotes import (
     eagle_pesos
 )
+from estoque import (
+    eagle_abaixo_do_minimo
+)
 from financeiro import (
     eagle_saldo,
     eagle_prx_recebimentos,
@@ -86,6 +89,24 @@ def get_finance_options(message):
     Clique em uma das opções
     """.format(first_name=message.from_user.first_name)
     bot.reply_to(message, menu)
+
+
+@bot.message_handler(commands=["abx_min"])
+def get_abx_min(message):
+
+    farm_id = autenticated.get(message.from_user.id)['farm_id']
+    token = autenticated.get(message.from_user.id)['token']
+    print('-------------estoque-----------------')
+    print(farm_id, token)
+    if farm_id and token:
+        msg = eagle_abaixo_do_minimo(farm_id, token)
+    else:
+        msg: 'Não consegui identificar sua fazenda'
+    bot.send_message(
+        message.chat.id,
+        msg
+    )
+
 
 @bot.message_handler(commands=["estoque"])
 def get_storage_options(message):
