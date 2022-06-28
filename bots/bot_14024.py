@@ -16,7 +16,7 @@ from financeiro import (
 
 )
 from config import JETBOV_TOKEN, phone_numbers
-bot = telebot.TeleBot(API_KEY)
+bot = telebot.TeleBot(API_KEY, parse_mode='HTML')
 
 logger = telebot.logger
 
@@ -53,6 +53,7 @@ def get_prx_pgtos(message):
 
     if farm_id and token:
         msg = eagle_prx_pgtos(farm_id, token)
+        msg = f'<pre>{msg}</pre>'
     else:
         msg: 'Não consegui identificar sua fazenda'
     bot.send_message(
