@@ -91,6 +91,23 @@ def get_finance_options(message):
     """.format(first_name=message.from_user.first_name)
     bot.reply_to(message, menu)
 
+@bot.callback_query_handler(lambda query: query.data == "/financeiro")
+def finance_options(message):
+    print('-------CALBACK-----MESSAGE---------------')
+    print(message)
+    print('-------.................--------------------')
+    menu = """
+    {first_name}, sobre o que você quer saber:
+    /saldo: Sado da conta principal
+    /prx_pgtos: 10 próximos pagamentos em Aberto
+    /prx_recebimentos: 10 próximos recebimentos em Aberto
+    /pgtos_vencidos: Valor total dos Pagamentos vencidos em Aberto
+    /recb_vencidos: Valor total dos Recebimentos vencidos em Aberto
+    /inicial: Volta para o menu inicial
+    Clique em uma das opções
+    """.format(first_name=message.from_user.first_name)
+    bot.send_message(message.from_user.id, menu)
+
 
 @bot.message_handler(commands=["abx_min"])
 def get_abx_min(message):
@@ -167,18 +184,42 @@ def get_app_options(message):
 
 @bot.message_handler(commands=["inicial"])
 def get_inicial_menu(message):
-    menu = """
-    {first_name} aqui está o nosso menu inicial:
-    /financeiro: Informações financeiras
-    /estoque: Informações sobre seu estoque
-    /lotes: Situação dos lotes
-    /app: Atividades do aplicativo
-    Clique em uma das opções
-    """.format(first_name=message.from_user.first_name)
-    bot.send_message(
-        message.chat.id,
-        menu
+
+    markup = types.InlineKeyboardMarkup()
+
+    markup.row(
+        types.InlineKeyboardButton(
+            text="Financeiro",
+            callback_data="/financeiro"
+        ),
+        types.InlineKeyboardButton(
+            text="Estoque",
+            callback_data="/estoque"
+        ),
+        types.InlineKeyboardButton(
+            text="Lotes",
+            callback_data="/lotes"
+        ),
+        types.InlineKeyboardButton(
+            text="APP",
+            callback_data="/app"
+        )
+        
     )
+
+    # menu = """
+    # {first_name} aqui está o nosso menu inicial:
+    # /financeiro: Informações financeiras
+    # /estoque: Informações sobre seu estoque
+    # /lotes: Situação dos lotes
+    # /app: Atividades do aplicativo
+    # Clique em uma das opções
+    # """.format(first_name=message.from_user.first_name)
+    # bot.send_message(
+    #     message.chat.id,
+    #     menu
+    # )
+    bot.send_message(message.chat.id, 'Menu inicial', reply_markup=markup) 
 
 
 @bot.message_handler(content_types=["contact"])
